@@ -1,33 +1,20 @@
 package abdulhakov.eldar;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 public class Main {
 
     public static void main(String[] args) {
-        HelloWorld.HelloWorldPrint();
+        PerformanceBenchmarks.benchmarkAddMillion("LinkedList", new LinkedList<>());
+        PerformanceBenchmarks.benchmarkAddRemove1000("LinkedList", new LinkedList<>());
+        System.out.println();
 
-        CustomList customList = new CustomList();
-        customList.add(1);
-        customList.add(24);
-        customList.add(39);
-        customList.print();
-        System.out.println("Is Empty: " + customList.isEmpty());
+        PerformanceBenchmarks.benchmarkAddMillion("List", new ArrayList<>());
+        PerformanceBenchmarks.benchmarkAddRemove1000("List", new ArrayList<>());
+        System.out.println();
 
-        System.out.println("Size: " + customList.size());
-
-        System.out.println("Index 1: " + customList.get(1));
-        System.out.println("Index 2: " + customList.get(2));
-
-        customList.set(1, 150);
-        customList.print();
-
-        customList.remove(2);
-        customList.print();
-
-        customList.clear();
-        customList.print();
-        System.out.println("Is Empty: " + customList.isEmpty());
-
-        customList.add(55);
-        customList.print();
+        PerformanceBenchmarks.benchmarkAddMillion("CustomList", new CustomList<>());
+        PerformanceBenchmarks.benchmarkAddRemove1000("CustomList", new CustomList<>());
     }
 }
