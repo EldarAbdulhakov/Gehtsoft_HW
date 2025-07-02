@@ -9,7 +9,7 @@ public class PerformanceBenchmarks {
         long beforeAddMemory = getUsedMemory();
         long startTime = System.currentTimeMillis();
 
-        for (int i = 0; i < 400000; i++) {
+        for (int i = 0; i < 1000000; i++) {
             list.add(i);
         }
 
