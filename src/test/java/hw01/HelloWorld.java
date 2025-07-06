@@ -1,4 +1,4 @@
-package abdulhakov.eldar;
+package hw01;
 
 public class HelloWorld {
 

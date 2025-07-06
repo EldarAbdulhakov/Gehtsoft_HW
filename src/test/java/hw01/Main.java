@@ -1,4 +1,4 @@
-package abdulhakov.eldar;
+package hw01;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
