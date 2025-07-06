@@ -1,4 +1,4 @@
-package abdulhakov.eldar.LombokAnnotationsPractice;
+package hw02.LombokAnnotationsPractice;
 
 // Аннотации @Setter и @Getter из библиотеки Lombok автоматически генерируют сеттеры и геттеры для полей класса.
 // Можно повесить аннотацию на уровень поля — генерация для конкретного поля.

@@ -1,4 +1,4 @@
-package abdulhakov.eldar.LombokAnnotationsPractice;
+package hw02.LombokAnnotationsPractice;
 
 import lombok.RequiredArgsConstructor;
 
