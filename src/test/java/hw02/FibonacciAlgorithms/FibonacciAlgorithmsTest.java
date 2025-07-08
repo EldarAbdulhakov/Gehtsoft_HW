@@ -32,7 +32,7 @@ public class FibonacciAlgorithmsTest {
         double memory = (afterRemoveMemory - beforeRemoveMemory) / 1024.0 / 1024.0;
         double time = (endTime - startTime) / 1000000.0;
 
-        System.out.printf(testCase + " | %7.2f ms | %5.2f Mb%n", time, memory);
+        System.out.printf(testCase + " | %7.2f ms | %6.2f Mb%n", time, memory);
     }
 
     @Test
@@ -71,11 +71,11 @@ public class FibonacciAlgorithmsTest {
     @ParameterizedTest(name = "n = {0}")
     @ValueSource(ints = {10000, 20000, 40000, 80000, 160000, 320000, 640000, 1280000})
     public void testPerformanceBenchmarkMemoAndIterative(int n) {
-        System.out.print("n = " + n + " | ");
-        runAndMeasure("Memo     ", () -> FibonacciAlgorithms.fibonacciMemoized(n, new HashMap<>()));
-        System.out.print("n = " + n + " | ");
-        runAndMeasure("Iterative", () -> FibonacciAlgorithms.fibonacciIterative(n));
-        System.out.println("-----------------------------------------------");
+        System.out.printf("n = %-8d", n);
+        runAndMeasure("| Memo     ", () -> FibonacciAlgorithms.fibonacciMemoized(n, new HashMap<>()));
+        System.out.printf("n = %-8d", n);
+        runAndMeasure("| Iterative", () -> FibonacciAlgorithms.fibonacciIterative(n));
+        System.out.println("------------------------------------------------");
 
     }
 }

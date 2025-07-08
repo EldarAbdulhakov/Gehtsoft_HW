@@ -16,7 +16,7 @@ public class FibonacciAlgorithms {
 
     public static long fibonacciRecursive(int n) {
         if (n < 0) {
-            throw new IllegalArgumentException("n must be ≥ 0");
+            throw new IllegalArgumentException("n must be >= 0");
         }
 
         if (n < 2) {
@@ -38,7 +38,7 @@ public class FibonacciAlgorithms {
 
     public static long fibonacciMemoized(int n, Map<Integer, Long> cache) {
         if (n < 0) {
-            throw new IllegalArgumentException("n must be ≥ 0");
+            throw new IllegalArgumentException("n must be >= 0");
         }
 
         if (n < 2) {
@@ -70,7 +70,7 @@ public class FibonacciAlgorithms {
         long result = 0;
 
         if (n < 0) {
-            throw new IllegalArgumentException("n must be ≥ 0");
+            throw new IllegalArgumentException("n must be >= 0");
         }
 
         if (n < 2) {
