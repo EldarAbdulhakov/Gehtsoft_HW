@@ -20,9 +20,6 @@ public class CustomRunner {
         runTestsInPackage(packageName);
     }
 
-    /**
-     * Runs all test methods in all classes found in the specified package.
-     */
     public static void runTestsInPackage(String packageName) {
         Set<Class<?>> classes;
         try {
@@ -64,9 +61,6 @@ public class CustomRunner {
                 totalTests == 0 ? 0.0 : (passedTests * 100.0) / totalTests);
     }
 
-    /**
-     * Finds all classes in the given package.
-     */
     private static Set<Class<?>> findClassesInPackage(String packageName)
             throws IOException, ClassNotFoundException, URISyntaxException {
 
@@ -91,9 +85,6 @@ public class CustomRunner {
         return classes;
     }
 
-    /**
-     * Runs test methods in a class and collect results.
-     */
     private static TestResults runTestsInClass(Class<?> clazz) {
         Method[] methods = clazz.getDeclaredMethods();
         int passed = 0;
@@ -117,9 +108,6 @@ public class CustomRunner {
         return new TestResults(testCount, passed, failed, classExecutionTime);
     }
 
-    /**
-     * Run a single test method and print detailed result.
-     */
     private static SingleTestResult runSingleTest(Class<?> clazz, Method method) {
         Object instance;
         try {
@@ -147,15 +135,9 @@ public class CustomRunner {
         }
     }
 
-    /**
-     * The result of a single test method run.
-     */
     private record SingleTestResult(boolean passed, long executionTimeMs) {
     }
 
-    /**
-     * Test run results for a class.
-     */
     private record TestResults(int testsRun, int testsPassed, int testsFailed, long executionTimeMs) {
     }
 }

@@ -69,7 +69,7 @@ public class FibonacciAlgorithmsTest {
     }
 
     @ParameterizedTest(name = "n = {0}")
-    @ValueSource(ints = {10000, 20000, 40000, 80000, 160000, 320000, 640000, 1280000})
+    @ValueSource(ints = {10000, 20000, 40000, 80000, 160000, 320000, 640000, 1280000, 2560000})
     public void testPerformanceBenchmarkMemoAndIterative(int n) {
         System.out.printf("n = %-8d", n);
         runAndMeasure("| Memo     ", () -> FibonacciAlgorithms.fibonacciMemoized(n, new HashMap<>()));
