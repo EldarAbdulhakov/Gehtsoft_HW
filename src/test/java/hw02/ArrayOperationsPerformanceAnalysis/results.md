@@ -1,39 +1,3 @@
-Results
-
-n - array size, shift positions = 1000
-n = 1000    | SystemCopy |  0,41 ms
-n = 1000    | ManualLoop |  0,01 ms
--------------------------------------
-n = 10000   | SystemCopy |  0,02 ms
-n = 10000   | ManualLoop |  0,17 ms
--------------------------------------
-n = 100000  | SystemCopy |  0,03 ms
-n = 100000  | ManualLoop |  1,17 ms
--------------------------------------
-n = 1000000 | SystemCopy |  0,14 ms
-n = 1000000 | ManualLoop |  1,32 ms
--------------------------------------
-При изменении величины массива, ArrayCopy работает быстрее  
-
-
-n - shift positions, array size = 20000
-n = 1       | SystemCopy |  0,27 ms
-n = 1       | ManualLoop |  0,00 ms
--------------------------------------
-n = 10      | SystemCopy |  0,00 ms
-n = 10      | ManualLoop |  0,00 ms
--------------------------------------
-n = 100     | SystemCopy |  0,00 ms
-n = 100     | ManualLoop |  0,00 ms
--------------------------------------
-n = 1000    | SystemCopy |  0,02 ms
-n = 1000    | ManualLoop |  0,02 ms
--------------------------------------
-n = 10000   | SystemCopy |  0,13 ms
-n = 10000   | ManualLoop |  0,12 ms
--------------------------------------
-Оба метода работают одинаково, неважно на какую величину сдвигать массив.
-
 Array Shift Performance Test
 
 Array size | Shift    | ArrayCopy (ms) | Manual Loop (ms) |

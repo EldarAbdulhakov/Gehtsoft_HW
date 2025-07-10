@@ -13,11 +13,6 @@ public class ArrayOperations {
         }
 
         System.arraycopy(array, positions, array, 0, array.length - positions);
-
-//        for (int i = array.length - positions; i < array.length; i++) {
-//            array[i] = 0;
-//        }
-
         Arrays.fill(array, array.length - positions, array.length, 0);
     }
 
