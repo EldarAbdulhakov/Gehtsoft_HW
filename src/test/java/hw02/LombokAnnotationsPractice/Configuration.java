@@ -3,6 +3,7 @@ package hw02.LombokAnnotationsPractice;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+// @Accessors управляет генерацией геттеров и сеттеров.
 // Аннотация @Accessors(chain = true) от Lombok позволяет включить fluent API (цепочный API, текучий интерфейс),
 // когда сеттеры возвращают this, и можно вызывать эти методы цепочкой (chain).
 
