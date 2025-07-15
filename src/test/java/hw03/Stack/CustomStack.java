@@ -11,7 +11,7 @@ public class CustomStack<T> {
     private Node<T> top;
     private int size;
 
-//  положили сверху
+    //  положили сверху
     public void push(T data) {
         Node<T> newNode = new Node<>(data);
         newNode.setNext(top);
@@ -19,7 +19,7 @@ public class CustomStack<T> {
         size++;
     }
 
-//  удаление и возврат верхнего элемента
+    //  удаление и возврат верхнего элемента
     public T pop() {
         if (isEmpty()) {
             throw new EmptyStackException();
@@ -32,7 +32,7 @@ public class CustomStack<T> {
         return data;
     }
 
-//  возврат верхнего эл-та без удаления (или peek())
+    //  возврат верхнего эл-та без удаления (или peek())
     public T top() {
         return top.getData();
     }
@@ -49,6 +49,7 @@ public class CustomStack<T> {
     public String toString() {
         String dataStack = String.valueOf(top.getData());
         Node<T> currentNode = top.getNext();
+
         while (currentNode != null) {
             dataStack = dataStack + " " + currentNode.getData();
             currentNode = currentNode.getNext();
@@ -70,5 +71,6 @@ public class CustomStack<T> {
         System.out.println(customStack.pop());
         System.out.println(customStack.toString());
         System.out.println("size = " + customStack.size);
+        System.out.println(customStack.top());
     }
 }
