@@ -38,6 +38,39 @@ public class CustomLinkedList<T> {
         size++;
     }
 
+    public void add(int index, T data) {
+        if (index < 0 || index >= size)
+            throw new IndexOutOfBoundsException();
+
+        Node<T> newNode = new Node<>(data);
+        if (index == 0) {
+            newNode.setNext(first);
+            first = newNode;
+            if (size == 0) {
+                last = newNode;
+            }
+        }
+
+        Node<T> currentNode = first;
+        for (int i = 0; i < index - 1; i++) {
+            currentNode = currentNode.getNext();
+        }
+        newNode.setNext(currentNode.getNext());
+        currentNode.setNext(newNode);
+        size++;
+    }
+
+    public void set(int index, T data) {
+        if (index < 0 || index >= size)
+            throw new IndexOutOfBoundsException();
+
+        Node<T> currentNode = first;
+        for (int i = 0; i < index; i++) {
+            currentNode = currentNode.getNext();
+        }
+        currentNode.setData(data);
+    }
+
     public T getFirst() {
         if (first == null)
             throw new NoSuchElementException();
@@ -52,20 +85,34 @@ public class CustomLinkedList<T> {
         return last.getData();
     }
 
+    public T get(int index) {
+        if (index < 0 || index >= size)
+            throw new IndexOutOfBoundsException();
+
+        Node<T> getNode = first;
+        for (int i = 0; i < index; i++) {
+            getNode = getNode.getNext();
+        }
+
+        return getNode.getData();
+    }
+
     public T removeFirst() {
         if (first == null)
             throw new NoSuchElementException();
 
+        Node<T> removedFirst = first;
         first = first.getNext();
         size--;
 
-        return first.getData();
+        return removedFirst.getData();
     }
 
     public T removeLast() {
         if (last == null)
             throw new NoSuchElementException();
 
+        Node<T> removedLast = last;
         Node<T> current = first;
         while (current.getNext() != last) {
             current = current.getNext();
@@ -74,7 +121,7 @@ public class CustomLinkedList<T> {
         last = current;
         size--;
 
-        return last.getData();
+        return removedLast.getData();
     }
 
     public int size() {
@@ -113,6 +160,16 @@ public class CustomLinkedList<T> {
         System.out.println("first = " + customLinkedList.getFirst());
         System.out.println("last = " + customLinkedList.getLast());
         System.out.println("size = " + customLinkedList.size());
+
+        int index = 1;
+        System.out.println("Linked list :[" + customLinkedList.toString() + "]");
+        System.out.println("index № " + index + " = " + customLinkedList.get(index));
+
+        customLinkedList.set(1, 155);
+        System.out.println("size = " + customLinkedList.size());
+        System.out.println("Linked list :[" + customLinkedList.toString() + "]");
+
+        customLinkedList.add(2, 255);
         System.out.println("Linked list :[" + customLinkedList.toString() + "]");
     }
 }
