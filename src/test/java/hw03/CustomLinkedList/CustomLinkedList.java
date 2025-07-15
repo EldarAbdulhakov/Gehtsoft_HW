@@ -9,9 +9,6 @@ public class CustomLinkedList<T> {
     private int size;
 
     public void addFirst(T data) {
-        if (data == null)
-            throw new NullPointerException();
-
         Node<T> newNode = new Node<>(data);
         if (first == null) {
             first = newNode;
@@ -24,9 +21,6 @@ public class CustomLinkedList<T> {
     }
 
     public void addLast(T data) {
-        if (data == null)
-            throw new NullPointerException();
-
         Node<T> newNode = new Node<>(data);
         if (last == null) {
             first = newNode;
@@ -101,18 +95,18 @@ public class CustomLinkedList<T> {
         if (first == null)
             throw new NoSuchElementException();
 
-        Node<T> removedFirst = first;
+        T data = first.getData();
         first = first.getNext();
         size--;
 
-        return removedFirst.getData();
+        return data;
     }
 
     public T removeLast() {
         if (last == null)
             throw new NoSuchElementException();
 
-        Node<T> removedLast = last;
+        T data = last.getData();
         Node<T> current = first;
         while (current.getNext() != last) {
             current = current.getNext();
@@ -121,7 +115,7 @@ public class CustomLinkedList<T> {
         last = current;
         size--;
 
-        return removedLast.getData();
+        return data;
     }
 
     public int size() {
@@ -140,6 +134,7 @@ public class CustomLinkedList<T> {
             dataList = dataList + " " + current.getData();
             current = current.getNext();
         }
+
         return dataList;
     }
 
