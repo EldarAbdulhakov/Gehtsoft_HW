@@ -1,8 +1,5 @@
 package hw03.CustomLinkedList;
 
-import lombok.Data;
-
-import java.util.List;
 import java.util.NoSuchElementException;
 
 public class CustomLinkedList<T> {
@@ -69,10 +66,12 @@ public class CustomLinkedList<T> {
         if (last == null)
             throw new NoSuchElementException();
 
-
-        last
-
-
+        Node<T> current = first;
+        while (current.getNext() != last) {
+            current = current.getNext();
+        }
+        current.setNext(null);
+        last = current;
         size--;
 
         return last.getData();
@@ -86,13 +85,16 @@ public class CustomLinkedList<T> {
         return size == 0;
     }
 
-//    public List<T> toString() {
-//
-//        while ( != null) {
-//            getFirst();
-//        }
-//        return ;
-//    }
+    @Override
+    public String toString() {
+        String dataList = String.valueOf(first.getData());
+        Node<T> current = first.getNext();
+        while (current != null) {
+            dataList = dataList + " " + current.getData();
+            current = current.getNext();
+        }
+        return dataList;
+    }
 
     public static void main(String[] args) {
         CustomLinkedList<Integer> customLinkedList = new CustomLinkedList<>();
@@ -106,10 +108,11 @@ public class CustomLinkedList<T> {
 
         customLinkedList.removeFirst();
         customLinkedList.removeFirst();
+        customLinkedList.removeLast();
 
         System.out.println("first = " + customLinkedList.getFirst());
         System.out.println("last = " + customLinkedList.getLast());
         System.out.println("size = " + customLinkedList.size());
+        System.out.println("Linked list :[" + customLinkedList.toString() + "]");
     }
-
 }
