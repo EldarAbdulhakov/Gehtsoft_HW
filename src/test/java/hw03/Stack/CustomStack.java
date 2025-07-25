@@ -1,11 +1,10 @@
 package hw03.Stack;
 
-//LIFO (Last In First Out)
-
 import hw03.CustomLinkedList.Node;
 
 import java.util.EmptyStackException;
 
+//LIFO (Last In First Out)
 public class CustomStack<T> {
 
     private Node<T> top;

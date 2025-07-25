@@ -14,7 +14,6 @@ public class CustomLinkedList<T> {
             first = newNode;
             last = newNode;
         } else {
-
             newNode.setNext(first);
             first = newNode;
         }
