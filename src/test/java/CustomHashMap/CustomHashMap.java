@@ -1,5 +1,7 @@
 package CustomHashMap;
 
+import java.util.*;
+
 public class CustomHashMap<K, V> {
 
     private int capacity = 5;
@@ -8,7 +10,7 @@ public class CustomHashMap<K, V> {
 
     public void resize() {
         int oldCapacity = capacity;
-        capacity = (int)(capacity * 1.5);
+        capacity = (int) (capacity * 1.5);
         Node<K, V>[] oldMap = map;
         map = new Node[capacity];
         size = 0;
@@ -22,15 +24,18 @@ public class CustomHashMap<K, V> {
         }
     }
 
+    private int getIndex(K key) {
+        return Math.abs(key.hashCode()) % capacity;
+    }
+
     public void put(K key, V value) {
         Node<K, V> newNode = new Node<>(key, value);
 
         if (size * 100.0 / capacity > 75) {
-           resize();
+            resize();
         }
 
-        int index = newNode.getHash() % capacity;
-
+        int index = getIndex(key);
         Node<K, V> currentNode = map[index];
 
         if (currentNode == null) {
@@ -47,8 +52,8 @@ public class CustomHashMap<K, V> {
                 }
                 currentNode = currentNode.getNext();
             }
-            size++;
         }
+        size++;
     }
 
     @Override
@@ -56,13 +61,115 @@ public class CustomHashMap<K, V> {
         String data = "";
         for (int i = 0; i < capacity; i++) {
             Node<K, V> currentNode = map[i];
-                while (currentNode != null) {
-                    data = data + "[" + currentNode.getKey() + "," + currentNode.getValue() + "]" + ", ";
-                    currentNode = currentNode.getNext();
-                }
+            while (currentNode != null) {
+                data = data + "[" + currentNode.getKey() + "," + currentNode.getValue() + "]" + ", ";
+                currentNode = currentNode.getNext();
+            }
         }
 
         return data;
+    }
+
+    public V get(K key) {
+        int index = getIndex(key);
+        Node<K, V> currentNode = map[index];
+
+        while (currentNode != null) {
+            if (currentNode.getKey().equals(key)) {
+                return currentNode.getValue();
+            }
+            currentNode = currentNode.getNext();
+        }
+        return null;
+    }
+
+    public boolean containsKey(K key) {
+        int index = getIndex(key);
+        Node<K, V> currentNode = map[index];
+
+        while (currentNode != null) {
+            if (currentNode.getKey().equals(key)) {
+                return true;
+            }
+            currentNode = currentNode.getNext();
+        }
+        return false;
+    }
+
+    private boolean containsValue(V value) {
+        for (int i = 0; i < capacity; i++) {
+            Node<K, V> currentNode = map[i];
+
+            while (currentNode != null) {
+                if ((value == null && currentNode.getValue() == null) ||
+                        (value != null && value.equals(currentNode.getValue()))) {
+                    return true;
+                }
+                currentNode = currentNode.getNext();
+            }
+        }
+        return false;
+    }
+
+    private int size() {
+        return size;
+    }
+
+    private boolean isEmpty() {
+        return size == 0;
+    }
+
+    private K[] keySet() {
+        K[] result = (K[]) new Object[size];
+        int arrayIndex = 0;
+
+        for (int i = 0; i < capacity; i++) {
+            Node<K, V> currentNode = map[i];
+
+            while (currentNode != null) {
+                result[arrayIndex++] = currentNode.getKey();
+                currentNode = currentNode.getNext();
+            }
+        }
+
+        return result;
+    }
+
+    private V[] values() {
+        V[] result = (V[]) new Object[size];
+        int arrayIndex = 0;
+
+        for (int i = 0; i < capacity; i++) {
+            Node<K, V> currentNode = map[i];
+
+            while (currentNode != null) {
+                result[arrayIndex++] = currentNode.getValue();
+                currentNode = currentNode.getNext();
+            }
+        }
+
+        return result;
+    }
+
+    //возвращать ли удаленный элемент?
+    public void remove(K key) {
+        int index = getIndex(key);
+        Node<K, V> currentNode = map[index];
+        Node<K, V> prevNode = null;
+
+        while (currentNode != null) {
+            if (currentNode.getKey().equals(key)) {
+                if (prevNode == null) {
+                    map[index] = currentNode.getNext();
+                } else {
+                    prevNode.setNext(currentNode.getNext());
+                }
+                size--;
+                return;
+            }
+            prevNode = currentNode;
+            currentNode = currentNode.getNext();
+        }
     }
 
     public static void main(String[] args) {
@@ -81,14 +188,18 @@ public class CustomHashMap<K, V> {
         customHashMap.put(12, 90);
         customHashMap.put(13, 90);
         customHashMap.put(14, 90);
-        customHashMap.put(15, 90);
+        customHashMap.put(15, null);
         customHashMap.put(11, 900);
 
         System.out.println(customHashMap);
-    }
+        System.out.println(customHashMap.get(110));
+        System.out.println(customHashMap.containsKey(1));
+        System.out.println(customHashMap.containsKey(50));
+        System.out.println(customHashMap.size());
+        System.out.println(customHashMap.containsValue(9000));
+        System.out.println(Arrays.toString(customHashMap.values()));
+        System.out.println(Arrays.toString(customHashMap.keySet()));
 
-    //    public V get(K key) {
-//
-//        return ;
-//    }
+
+    }
 }
