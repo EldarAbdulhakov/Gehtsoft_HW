@@ -7,10 +7,10 @@ import java.util.HashMap;
 
 public class PerformanceTest {
 
-    private static final int ITERATIONS = 10000000;
+    private static final int ITERATIONS = 10_000_000;
     private int i;
-    private static CustomHashMap<Integer, Integer> customHashMap = new CustomHashMap<>();
-    private static HashMap<Integer, Integer> hashMap = new HashMap<>();
+    private CustomHashMap<Integer, Integer> customHashMap = new CustomHashMap<>();
+    private HashMap<Integer, Integer> hashMap = new HashMap<>();
 
     public void runAndMeasure(Runnable task1, Runnable task2) {
         long startTime1 = System.currentTimeMillis();
