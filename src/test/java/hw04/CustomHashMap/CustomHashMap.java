@@ -84,37 +84,6 @@ public class CustomHashMap<K, V> implements Map<K, V> {
     }
 
     @Override
-    public void putAll(Map<? extends K, ? extends V> m) {
-
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder data = new StringBuilder("[");
-        boolean first = true;
-
-        for (int i = 0; i < capacity; i++) {
-            Node<K, V> currentNode = map[i];
-            while (currentNode != null) {
-                if (!first) {
-                    data.append(", ");
-                }
-                data
-                        .append("[")
-                        .append(currentNode.getKey())
-                        .append(", ")
-                        .append(currentNode.getValue())
-                        .append("]");
-                first = false;
-                currentNode = currentNode.getNext();
-            }
-        }
-        data.append("]");
-
-        return data.toString();
-    }
-
-    @Override
     public V get(Object key) {
         int index = getIndex(key);
         Node<K, V> currentNode = map[index];
@@ -201,11 +170,6 @@ public class CustomHashMap<K, V> implements Map<K, V> {
     }
 
     @Override
-    public Set<Entry<K, V>> entrySet() {
-        return Set.of();
-    }
-
-    @Override
     public V remove(Object key) {
         int index = getIndex(key);
         Node<K, V> currentNode = map[index];
@@ -231,6 +195,42 @@ public class CustomHashMap<K, V> implements Map<K, V> {
     public void clear() {
         map = new Node[capacity];
         size = 0;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder data = new StringBuilder("[");
+        boolean first = true;
+
+        for (int i = 0; i < capacity; i++) {
+            Node<K, V> currentNode = map[i];
+            while (currentNode != null) {
+                if (!first) {
+                    data.append(", ");
+                }
+                data
+                        .append("[")
+                        .append(currentNode.getKey())
+                        .append(", ")
+                        .append(currentNode.getValue())
+                        .append("]");
+                first = false;
+                currentNode = currentNode.getNext();
+            }
+        }
+        data.append("]");
+
+        return data.toString();
+    }
+
+    @Override
+    public Set<Entry<K, V>> entrySet() {
+        return Set.of();
+    }
+
+    @Override
+    public void putAll(Map<? extends K, ? extends V> m) {
+
     }
 
     public static void main(String[] args) {
