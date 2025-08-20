@@ -2,6 +2,7 @@ package hw04;
 
 import hw04.CustomHashMap.CustomHashMap;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -135,6 +136,12 @@ public class PerformanceTest {
 
         System.out.println("customHashMap = " + time1  + " ms, " + "hashMap = " + time2 + " ms");
     }
+
+//    @ParameterizedTest
+//    public void testMapsPerformance() {
+//
+//    }
+
 
 //    @Test
 //    public void testMapsPerformance() {
