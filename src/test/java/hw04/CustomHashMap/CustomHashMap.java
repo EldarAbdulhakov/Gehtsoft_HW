@@ -1,8 +1,8 @@
 package hw04.CustomHashMap;
 
-import java.util.Arrays;
+import java.util.*;
 
-public class CustomHashMap<K, V> {
+public class CustomHashMap<K, V> implements Map<K, V> {
 
     private int capacity = 16;
     private Node<K, V>[] map = new Node[capacity];
@@ -10,7 +10,7 @@ public class CustomHashMap<K, V> {
 
     private void resize() {
         int oldCapacity = capacity;
-        capacity = capacity * 2;
+        capacity *= 2;
         Node<K, V>[] oldMap = map;
         map = new Node[capacity];
 
@@ -45,7 +45,7 @@ public class CustomHashMap<K, V> {
         }
     }
 
-    private int getIndex(K key) {
+    private int getIndex(Object key) {
         if (key == null) {
             return 0;
         }
@@ -53,7 +53,8 @@ public class CustomHashMap<K, V> {
         return Math.abs(key.hashCode()) % capacity;
     }
 
-    public void put(K key, V value) {
+    @Override
+    public V put(K key, V value) {
         if (size * 100.0 / capacity > 75) {
             resize();
         }
@@ -67,8 +68,9 @@ public class CustomHashMap<K, V> {
         } else {
             while (true) {
                 if ((key == null && currentNode.getKey() == null) || (key != null && key.equals(currentNode.getKey()))) {
+                    V prevValue = currentNode.getValue();
                     currentNode.setValue(value);
-                    return;
+                    return prevValue;
                 }
                 if (currentNode.getNext() == null) {
                     currentNode.setNext(newNode);
@@ -78,6 +80,12 @@ public class CustomHashMap<K, V> {
             }
         }
         size++;
+        return null;
+    }
+
+    @Override
+    public void putAll(Map<? extends K, ? extends V> m) {
+
     }
 
     @Override
@@ -106,7 +114,8 @@ public class CustomHashMap<K, V> {
         return data.toString();
     }
 
-    public V get(K key) {
+    @Override
+    public V get(Object key) {
         int index = getIndex(key);
         Node<K, V> currentNode = map[index];
 
@@ -119,7 +128,8 @@ public class CustomHashMap<K, V> {
         return null;
     }
 
-    public boolean containsKey(K key) {
+    @Override
+    public boolean containsKey(Object key) {
         int index = getIndex(key);
         Node<K, V> currentNode = map[index];
 
@@ -132,7 +142,8 @@ public class CustomHashMap<K, V> {
         return false;
     }
 
-    public boolean containsValue(V value) {
+    @Override
+    public boolean containsValue(Object value) {
         for (int i = 0; i < capacity; i++) {
             Node<K, V> currentNode = map[i];
 
@@ -147,23 +158,25 @@ public class CustomHashMap<K, V> {
         return false;
     }
 
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
-    public K[] keySet() {
-        K[] result = (K[]) new Object[size];
-        int arrayIndex = 0;
+    @Override
+    public Set<K> keySet() {
+        Set<K> result = new HashSet<>();
 
         for (int i = 0; i < capacity; i++) {
             Node<K, V> currentNode = map[i];
 
             while (currentNode != null) {
-                result[arrayIndex++] = currentNode.getKey();
+                result.add(currentNode.getKey());
                 currentNode = currentNode.getNext();
             }
         }
@@ -171,15 +184,15 @@ public class CustomHashMap<K, V> {
         return result;
     }
 
-    public V[] values() {
-        V[] result = (V[]) new Object[size];
-        int arrayIndex = 0;
+    @Override
+    public Collection<V> values() {
+        Collection<V> result = new ArrayList<>();
 
         for (int i = 0; i < capacity; i++) {
             Node<K, V> currentNode = map[i];
 
             while (currentNode != null) {
-                result[arrayIndex++] = currentNode.getValue();
+                result.add(currentNode.getValue());
                 currentNode = currentNode.getNext();
             }
         }
@@ -187,7 +200,13 @@ public class CustomHashMap<K, V> {
         return result;
     }
 
-    public V remove(K key) {
+    @Override
+    public Set<Entry<K, V>> entrySet() {
+        return Set.of();
+    }
+
+    @Override
+    public V remove(Object key) {
         int index = getIndex(key);
         Node<K, V> currentNode = map[index];
         Node<K, V> prevNode = null;
@@ -208,6 +227,7 @@ public class CustomHashMap<K, V> {
         return null;
     }
 
+    @Override
     public void clear() {
         map = new Node[capacity];
         size = 0;
@@ -239,9 +259,7 @@ public class CustomHashMap<K, V> {
         System.out.println(customHashMap.containsKey(50));
         System.out.println(customHashMap.size());
         System.out.println(customHashMap.containsValue(9000));
-        System.out.println(Arrays.toString(customHashMap.values()));
-        System.out.println(Arrays.toString(customHashMap.keySet()));
-
-
+        System.out.println(customHashMap.values());
+        System.out.println(customHashMap.keySet());
     }
 }

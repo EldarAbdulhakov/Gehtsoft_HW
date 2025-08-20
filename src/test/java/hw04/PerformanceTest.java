@@ -4,11 +4,13 @@ import hw04.CustomHashMap.CustomHashMap;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class PerformanceTest {
 
     private static final int ITERATIONS = 10_000_000;
-    private int i;
+    private Integer i;
     private CustomHashMap<Integer, Integer> customHashMap = new CustomHashMap<>();
     private HashMap<Integer, Integer> hashMap = new HashMap<>();
 
@@ -133,4 +135,19 @@ public class PerformanceTest {
 
         System.out.println("customHashMap = " + time1  + " ms, " + "hashMap = " + time2 + " ms");
     }
+
+//    @Test
+//    public void testMapsPerformance() {
+//        System.out.println("Maps Performance Test\n");
+//        System.out.printf("%-12s %-10s %-16s %-18s%n", "Array size |", "Shift    |", "ArrayCopy (ms) |", "Manual Loop (ms) |");
+//        System.out.println("---------------------------------------------------------");
+//
+//                System.out.printf("%-11d| %-9d|", size, shift);
+//                runAndMeasure(() -> ArrayOperations.shiftLeftSystemCopy(arraySystemCopy, shift),
+//                        () -> ArrayOperations.shiftLeftManualLoop(arrayManualLoop, shift));
+//
+//                System.out.println("---------------------------------------------------------");
+//
+//
+//    }
 }
