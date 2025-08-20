@@ -1,4 +1,4 @@
-package CustomHashMap;
+package hw04.CustomHashMap;
 
 import java.util.Arrays;
 

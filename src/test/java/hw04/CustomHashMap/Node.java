@@ -1,4 +1,4 @@
-package CustomHashMap;
+package hw04.CustomHashMap;
 
 import lombok.Data;
 
