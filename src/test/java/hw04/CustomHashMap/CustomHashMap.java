@@ -47,6 +47,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     private int getIndex(Object key) {
         if (key == null) {
+
             return 0;
         }
 
@@ -70,6 +71,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
                 if ((key == null && currentNode.getKey() == null) || (key != null && key.equals(currentNode.getKey()))) {
                     V prevValue = currentNode.getValue();
                     currentNode.setValue(value);
+
                     return prevValue;
                 }
                 if (currentNode.getNext() == null) {
@@ -80,6 +82,7 @@ public class CustomHashMap<K, V> implements Map<K, V> {
             }
         }
         size++;
+
         return null;
     }
 
@@ -90,10 +93,12 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
         while (currentNode != null) {
             if ((key == null && currentNode.getKey() == null) || (key != null && key.equals(currentNode.getKey()))) {
+
                 return currentNode.getValue();
             }
             currentNode = currentNode.getNext();
         }
+
         return null;
     }
 
@@ -104,10 +109,12 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
         while (currentNode != null) {
             if ((key == null && currentNode.getKey() == null) || (key != null && key.equals(currentNode.getKey()))) {
+
                 return true;
             }
             currentNode = currentNode.getNext();
         }
+
         return false;
     }
 
@@ -119,11 +126,13 @@ public class CustomHashMap<K, V> implements Map<K, V> {
             while (currentNode != null) {
                 if ((value == null && currentNode.getValue() == null) ||
                         (value != null && value.equals(currentNode.getValue()))) {
+
                     return true;
                 }
                 currentNode = currentNode.getNext();
             }
         }
+
         return false;
     }
 
@@ -183,11 +192,13 @@ public class CustomHashMap<K, V> implements Map<K, V> {
                     prevNode.setNext(currentNode.getNext());
                 }
                 size--;
+
                 return currentNode.getValue();
             }
             prevNode = currentNode;
             currentNode = currentNode.getNext();
         }
+
         return null;
     }
 
