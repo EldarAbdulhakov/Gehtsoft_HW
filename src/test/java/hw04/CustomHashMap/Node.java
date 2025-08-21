@@ -1,8 +1,10 @@
 package hw04.CustomHashMap;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class Node<K, V> {
 
     private K key;
