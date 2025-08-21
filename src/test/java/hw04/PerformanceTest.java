@@ -33,25 +33,6 @@ public class PerformanceTest {
         System.out.printf("%-6s %-8d | %10d ms | %5d ms |%n",method, i, time1, time2);
     }
 
-    private void runAndMeasure2(String method, Map<Integer, Integer> map, int iterations) {
-        long startTime1 = System.currentTimeMillis();
-        for (i = 0; i < iterations; i++) {
-            map.put(i, i);
-        }
-        long endTime1 = System.currentTimeMillis();
-        long time1 = endTime1 - startTime1;
-
-        long startTime2 = System.currentTimeMillis();
-        for (i = 0; i < iterations; i++) {
-
-        }
-
-        long endTime2 = System.currentTimeMillis();
-        long time2 = endTime2 - startTime2;
-
-        System.out.printf("%-6s %-8d | %10d ms | %5d ms |%n",method, i, time1, time2);
-    }
-
     @Test
     public void testPutPerformance() {
         runAndMeasure("Put", () -> customHashMap.put(i, i), () -> hashMap.put(i, i), ITERATIONS);
