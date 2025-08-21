@@ -6,20 +6,20 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class PerformanceTest {
 
     private static final int ITERATIONS = 1_000_000;
-    private Integer i;
+    private int i;
     private CustomHashMap<Integer, Integer> customHashMap = new CustomHashMap<>();
     private HashMap<Integer, Integer> hashMap = new HashMap<>();
 
-    public void runAndMeasure(String method,Runnable task1, Runnable task2, Integer iterations) {
+    private void runAndMeasure(String method,Runnable task1, Runnable task2, int iterations) {
         long startTime1 = System.currentTimeMillis();
         for (i = 0; i < iterations; i++) {
             task1.run();
         }
-        task1.run();
         long endTime1 = System.currentTimeMillis();
         long time1 = endTime1 - startTime1;
 
@@ -27,7 +27,25 @@ public class PerformanceTest {
         for (i = 0; i < iterations; i++) {
             task2.run();
         }
-        task2.run();
+        long endTime2 = System.currentTimeMillis();
+        long time2 = endTime2 - startTime2;
+
+        System.out.printf("%-6s %-8d | %10d ms | %5d ms |%n",method, i, time1, time2);
+    }
+
+    private void runAndMeasure2(String method, Map<Integer, Integer> map, int iterations) {
+        long startTime1 = System.currentTimeMillis();
+        for (i = 0; i < iterations; i++) {
+            map.put(i, i);
+        }
+        long endTime1 = System.currentTimeMillis();
+        long time1 = endTime1 - startTime1;
+
+        long startTime2 = System.currentTimeMillis();
+        for (i = 0; i < iterations; i++) {
+
+        }
+
         long endTime2 = System.currentTimeMillis();
         long time2 = endTime2 - startTime2;
 
