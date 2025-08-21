@@ -7,20 +7,20 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.HashMap;
+import java.util.function.IntConsumer;
 
 public class PerformanceTest {
 
     private static final int ITERATIONS = 1_000_000;
-    private int i;
     private CustomHashMap<Integer, Integer> customHashMap;
     private HashMap<Integer, Integer> hashMap;
 
-    private void runAndMeasure(String method, Runnable task1, Runnable task2, int iterations) {
+    private void runAndMeasure(String method, IntConsumer task1, IntConsumer task2, int iterations) {
         System.gc();
         long startMemory1 = getUsedMemory();
         long startTime1 = System.currentTimeMillis();
-        for (i = 0; i < iterations; i++) {
-            task1.run();
+        for (int i = 0; i < iterations; i++) {
+            task1.accept(i);
         }
         long endTime1 = System.currentTimeMillis();
         long time1 = endTime1 - startTime1;
@@ -30,8 +30,8 @@ public class PerformanceTest {
         System.gc();
         long startMemory2 = getUsedMemory();
         long startTime2 = System.currentTimeMillis();
-        for (i = 0; i < iterations; i++) {
-            task2.run();
+        for (int i = 0; i < iterations; i++) {
+            task2.accept(i);
         }
         long endTime2 = System.currentTimeMillis();
         long time2 = endTime2 - startTime2;
@@ -62,19 +62,19 @@ public class PerformanceTest {
 
     @Test
     public void testPutPerformance() {
-        runAndMeasure("Put", () -> customHashMap.put(i, i), () -> hashMap.put(i, i), ITERATIONS);
+        runAndMeasure("Put", key -> customHashMap.put(key, key), key -> hashMap.put(key, key), ITERATIONS);
     }
 
     @Test
     public void testGetPerformance() {
         prepareData(ITERATIONS);
-        runAndMeasure("Get", () -> customHashMap.get(i), () -> hashMap.get(i), ITERATIONS);
+        runAndMeasure("Get", key -> customHashMap.get(key), key -> hashMap.get(key), ITERATIONS);
     }
 
     @Test
     public void testRemovePerformance() {
         prepareData(ITERATIONS);
-        runAndMeasure("Remove", () -> customHashMap.remove(i), () -> hashMap.remove(i), ITERATIONS);
+        runAndMeasure("Remove", key -> customHashMap.remove(key), key -> hashMap.remove(key), ITERATIONS);
     }
 
     @ParameterizedTest()
@@ -83,12 +83,12 @@ public class PerformanceTest {
         System.out.println("-------------------------------------------------------------------------");
         System.out.printf("%-17s %-16s %-9s %-17s %-9s%n", "Iterations      |", "CustomHashMap |", "HashMap ||", "CustomHashMap |", "HashMap |");
 
-        runAndMeasure("Put", () -> customHashMap.put(i, i), () -> hashMap.put(i, i), iterations);
+        runAndMeasure("Put", key -> customHashMap.put(key, key), key -> hashMap.put(key, key), iterations);
 
         prepareData(iterations);
-        runAndMeasure("Get", () -> customHashMap.get(i), () -> hashMap.get(i), iterations);
+        runAndMeasure("Get", key -> customHashMap.get(key), key -> hashMap.get(key), iterations);
 
         prepareData(iterations);
-        runAndMeasure("Remove", () -> customHashMap.remove(i), () -> hashMap.remove(i), iterations);
+        runAndMeasure("Remove", key -> customHashMap.remove(key), key -> hashMap.remove(key), iterations);
     }
 }
