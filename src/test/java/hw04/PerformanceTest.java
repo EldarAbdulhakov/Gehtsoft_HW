@@ -16,21 +16,29 @@ public class PerformanceTest {
     private HashMap<Integer, Integer> hashMap = new HashMap<>();
 
     private void runAndMeasure(String method,Runnable task1, Runnable task2, int iterations) {
+        System.gc();
+        long startMemory1 = getUsedMemory();
         long startTime1 = System.currentTimeMillis();
         for (i = 0; i < iterations; i++) {
             task1.run();
         }
         long endTime1 = System.currentTimeMillis();
         long time1 = endTime1 - startTime1;
+        long endMemory1 = getUsedMemory();
+        double memory1 = (endMemory1 - startMemory1) / 1024.0 / 1024.0;
 
+        System.gc();
+        long startMemory2 = getUsedMemory();
         long startTime2 = System.currentTimeMillis();
         for (i = 0; i < iterations; i++) {
             task2.run();
         }
         long endTime2 = System.currentTimeMillis();
         long time2 = endTime2 - startTime2;
+        long endMemory2 = getUsedMemory();
+        double memory2 = (endMemory2 - startMemory2) / 1024.0 / 1024.0;
 
-        System.out.printf("%-6s %-8d | %10d ms | %5d ms |%n",method, i, time1, time2);
+        System.out.printf("%-6s %-8d | %10d ms | %5d ms | %10.2f МБ%n | %10.2f МБ%n",method, i, time1, time2, memory1, memory2);
     }
 
     @Test
