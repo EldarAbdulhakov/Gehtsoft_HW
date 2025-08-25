@@ -47,10 +47,8 @@ public class CustomHashMap<K, V> implements Map<K, V> {
 
     private int getIndex(Object key) {
         if (key == null) {
-
             return 0;
         }
-
         return Math.abs(key.hashCode()) % capacity;
     }
 
