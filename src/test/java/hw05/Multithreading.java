@@ -60,12 +60,44 @@ public class Multithreading {
         return result;
     }
 
+    private static void warmUp() throws ExecutionException, InterruptedException {
+        Multithreading array1 = new Multithreading();
+        for (int i = 1; i <= 50; i++) {
+            array1.sumWithParallelStream(i);
+            array1.sumWithParallelThreads(i);
+        }
+    }
+
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         Multithreading array = new Multithreading();
-//        System.out.println(array.sumWithParallelStream(5));
-//        System.out.println(array.sumWithParallelThreads(5));
+        int[] threadsCounts = {1, 10, 100, 1000};
+        int[] timeParallelStream = new int[4];
+        int[] timeParallelThreads = new int[4];
 
 
 
+
+
+        warmUp();
+        for (int threadsCount : threadsCounts) {
+
+            long startTime1 = System.nanoTime();
+            array.sumWithParallelStream(threadsCount);
+            long endTime1 = System.nanoTime();
+            long time1 = (endTime1 - startTime1) / 1000000;
+            System.out.print(time1 + " ");
+        }
+
+        System.out.println();
+
+        warmUp();
+        for (int threadsCount : threadsCounts) {
+
+            long startTime2 = System.nanoTime();
+            array.sumWithParallelThreads(threadsCount);
+            long endTime2 = System.nanoTime();
+            long time2 = (endTime2 - startTime2) / 1000000;
+            System.out.print(time2 + " ");
+        }
     }
 }
