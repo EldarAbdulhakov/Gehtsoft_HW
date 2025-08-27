@@ -1,5 +1,7 @@
 package hw05;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.stream.IntStream;
@@ -70,34 +72,28 @@ public class Multithreading {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         Multithreading array = new Multithreading();
-        int[] threadsCounts = {1, 10, 100, 1000};
-        int[] timeParallelStream = new int[4];
-        int[] timeParallelThreads = new int[4];
+        int[] threadCounts = {1, 10, 100, 1000};
 
+        try (FileWriter writer = new FileWriter("sum_results.txt")) {
+            writer.write(String.format("Threads | Method Parallel: | Time, ms |    Sum    |%n"));
+            writer.write(String.format("---------------------------------------------------%n"));
+            warmUp();
+            for (int threads : threadCounts) {
+                long startTime1 = System.nanoTime();
+                long sum1 = array.sumWithParallelStream(threads);
+                long endTime1 = System.nanoTime();
+                long time1 = (endTime1 - startTime1) / 1000000;
+                writer.write(String.format("  %-5d |     Stream       |    %-6d| %d |%n", threads, time1, sum1));
 
-
-
-
-        warmUp();
-        for (int threadsCount : threadsCounts) {
-
-            long startTime1 = System.nanoTime();
-            array.sumWithParallelStream(threadsCount);
-            long endTime1 = System.nanoTime();
-            long time1 = (endTime1 - startTime1) / 1000000;
-            System.out.print(time1 + " ");
-        }
-
-        System.out.println();
-
-        warmUp();
-        for (int threadsCount : threadsCounts) {
-
-            long startTime2 = System.nanoTime();
-            array.sumWithParallelThreads(threadsCount);
-            long endTime2 = System.nanoTime();
-            long time2 = (endTime2 - startTime2) / 1000000;
-            System.out.print(time2 + " ");
+                long startTime2 = System.nanoTime();
+                long sum2 = array.sumWithParallelThreads(threads);
+                long endTime2 = System.nanoTime();
+                long time2 = (endTime2 - startTime2) / 1000000;
+                writer.write(String.format("  %-5d |     Threads      |    %-6d| %d |%n", threads, time2, sum2));
+                writer.write(String.format("---------------------------------------------------%n"));
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
