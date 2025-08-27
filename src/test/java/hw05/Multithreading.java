@@ -14,7 +14,6 @@ public class Multithreading {
     public Multithreading() {
         array = new short[SIZE];
         for (int i = 0; i < SIZE; i++) {
-//            array[i] = (short) (Math.random() * Short.MAX_VALUE);
             array[i] = (short) i;
         }
     }
@@ -70,7 +69,7 @@ public class Multithreading {
         }
     }
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) throws ExecutionException {
         Multithreading array = new Multithreading();
         int[] threadCounts = {1, 10, 100, 1000};
 
